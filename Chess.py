@@ -3,8 +3,8 @@ import pygame
 pygame.init()
 
 # Set up room and variables
-room_width = 900
-room_height = 600
+room_width = 800
+room_height = 800
 window = pygame.display.set_mode((room_width, room_height))
 pygame.display.set_caption("Chess")
 
@@ -127,11 +127,28 @@ class Board:
     def __init__(self, window):
         self.board = [[], [], [], [], [], [], [], []]
         self.window = window
-        self.tile_width = 50
         self.border = 5
+        self.x = 100
+        self.y = 100
+        self.width = 600
+        self.tile_width = self.width / 8
 
     def draw(self):
-        pass
+        # Draw border
+        pygame.draw.rect(window, Text.colors["black"], [self.x, self.y, self.width, self.width], self.border)
+
+        # Draw tiles
+        for i in range(8):
+            y = self.y + i*self.tile_width
+            for j in range(8):
+                x = self.x + j*self.tile_width
+
+                if (i+j) % 2 == 0:
+                    color = Text.colors["white"]
+                else:
+                    color = Text.colors["black"]
+
+                pygame.draw.rect(window, color, [x, y, self.tile_width, self.tile_width])
 
 
 class Piece:
@@ -173,16 +190,19 @@ def draw():
 
 
 text = Text(window)
+board = Board(window)
+
 
 # Main Game loop
 while True:
     close()
     draw_background()
-
+    board.draw()
     if not paused:
         draw()
     else:
         draw_paused()
+
 
     pygame.time.delay(1)
     pygame.display.update()
