@@ -13,7 +13,6 @@ allobjs = []
 paused = False
 pressed = False
 
-
 class Text:
     colors = {'black': (0, 0, 0), 'blue': (0, 0, 255), 'beige': (207, 185, 151), 'white': (255, 255, 255),
               'yellow': (255, 255, 0), 'red': (255, 0, 0), 'gray': (192, 192, 192), 'lightblue': (13, 206, 250),
@@ -53,7 +52,7 @@ class Text:
         render = font.render(text, 0, color)
         self.window.blit(render, (text_x, text_y))
 
-    def paragraph(self, text, x = 20, y = 20, xlim=room_width-20):
+    def paragraph(self, text, x=20, y=20, xlim=room_width - 20):
         myfont = self.smallfont
         padding = 10
         cx = x
@@ -74,15 +73,13 @@ class Text:
             self.display(currenttext, cx, cy, self.colors["black"], myfont)
             cy += text_height + padding
 
-    def create_button(self, text, x, y, font, alignment = "left", crossed = False):
+    def create_button(self, text, x, y, font, alignment="left", crossed=False):
         global pressed
 
         text_width, text_height = font.size(text)
 
         box_width = text_width + self.buttonpadding
         box_height = text_height + self.buttonpadding
-
-
 
         if alignment == "center":
             box_x = x - (box_width / 2)
@@ -94,7 +91,6 @@ class Text:
 
             if alignment != 'left':
                 print("Invalid Alignment. Choose 'left' or 'center'. Deafulted to left")
-
 
         text_x = box_x + (self.buttonpadding / 2)
         text_y = box_y + (self.buttonpadding / 2)
@@ -127,22 +123,19 @@ class Text:
         pygame.draw.rect(self.window, colour, (x, y + height - thickness, width, thickness))
 
 
-class Base:
-    def __init__(self, x, y, width, height, colour):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.colour = colour
-        self.border = False
-
-        allobjs.append(self)
+class Board:
+    def __init__(self, window):
+        self.board = [[], [], [], [], [], [], [], []]
+        self.window = window
+        self.tile_width = 50
+        self.border = 5
 
     def draw(self):
-        pygame.draw.rect(window, self.colour, [self.x, self.y, self.width, self.height])
+        pass
 
-        if self.border:
-            pygame.draw.rect(window, Text.colors['black'], [self.x, self.y, self.width, self.height], 2)
+
+class Piece:
+    pass
 
 
 def draw_background():
@@ -150,7 +143,7 @@ def draw_background():
 
 
 def draw_paused():
-    text.display("P A U S E D", room_width/2, room_height/2, Text.colors['white'], Text.largefont, "center")
+    text.display("P A U S E D", room_width / 2, room_height / 2, Text.colors['white'], Text.largefont, "center")
 
 
 def close():
@@ -163,7 +156,7 @@ def close():
             pygame.quit()
             quit()
 
-        #Pause Feature
+        # Pause Feature
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_p:
                 stage = 7

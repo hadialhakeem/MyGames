@@ -19,6 +19,7 @@ allobjs = []
 
 pressed = False
 
+
 class Text:
     colors = {'black': (0, 0, 0), 'blue': (0, 0, 255), 'beige': (207, 185, 151), 'white': (255, 255, 255),
               'yellow': (255, 255, 0), 'red': (255, 0, 0), 'gray': (192, 192, 192), 'lightblue': (13, 206, 250),
@@ -136,25 +137,6 @@ class Text:
         pygame.draw.rect(self.window, colour, (x, y, thickness, height))
         pygame.draw.rect(self.window, colour, (x + width - thickness, y, thickness, height))
         pygame.draw.rect(self.window, colour, (x, y + height - thickness, width, thickness))
-
-
-class Base:
-    def __init__(self, x, y, width, height, colour):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.colour = colour
-        self.border = False
-
-        allobjs.append(self)
-
-    def draw(self):
-        pygame.draw.rect(window, self.colour, [self.x, self.y, self.width, self.height])
-
-        if self.border:
-            pygame.draw.rect(window, Text.colors['black'], [self.x, self.y, self.width, self.height], 2)
-
 
 
 def draw_background():
